@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { searchSymbol, type SearchResult } from '../api/alphavantage';
+import { searchSymbol, type SearchResult } from '../api/finnhub';
 
 interface Props {
   onSelect: (symbol: string, name: string) => void;

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getQuote, type StockQuote } from '../api/alphavantage';
+import { getQuote, type StockQuote } from '../api/finnhub';
 
 interface Props {
   symbol: string;
