@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import StockSearch from './components/StockSearch'
-import StockQuote from './components/StockQuote'
+import StockDashboard from './components/StockDashboard'
+import DefaultDashboard from './components/DefaultDashboard'
 
 function App() {
   const [selected, setSelected] = useState<{ symbol: string; name: string } | null>(null)
@@ -12,11 +13,14 @@ function App() {
         <p className="text-gray-500 text-base">Search any stock and get a real-time quote</p>
       </header>
 
-      <main className="w-full max-w-xl">
-        <StockSearch onSelect={(symbol, name) => setSelected({ symbol, name })} />
-        {selected && (
-          <StockQuote symbol={selected.symbol} companyName={selected.name} />
-        )}
+      <main className="w-full max-w-4xl">
+        <div className="max-w-xl mx-auto">
+          <StockSearch onSelect={(symbol, name) => setSelected({ symbol, name })} />
+        </div>
+        {selected
+          ? <StockDashboard symbol={selected.symbol} companyName={selected.name} />
+          : <DefaultDashboard onSelect={(symbol, name) => setSelected({ symbol, name })} />
+        }
       </main>
     </div>
   )
