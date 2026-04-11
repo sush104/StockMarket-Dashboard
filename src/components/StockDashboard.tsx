@@ -1,5 +1,10 @@
 import { useState, useEffect } from 'react';
 import { getQuote, type StockQuote } from '../api/finnhub';
+import CompanyNews from './CompanyNews';
+import CompanyProfile from './CompanyProfile';
+import EarningsCalendar from './EarningsCalendar';
+import MarketData from './MarketData';
+import RecommendationTrends from './RecommendationTrends';
 
 interface Props {
   symbol: string;
@@ -56,9 +61,9 @@ export default function StockDashboard({ symbol, companyName }: Props) {
   return (
     <div className="mt-8 w-full space-y-5">
 
-      {/* Hero card */}
+      {/* Hero card — price + day metrics */}
       <div className="bg-[#1a1a2e] border border-[#2a2a4a] rounded-2xl p-6 shadow-xl">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-6">
           <div>
             <div className="flex items-center gap-3 mb-1">
               <span className="text-3xl font-extrabold text-white">{quote.symbol}</span>
@@ -66,7 +71,7 @@ export default function StockDashboard({ symbol, companyName }: Props) {
                 {arrow} Live
               </span>
             </div>
-            <p className="text-gray-500 text-sm">{companyName}</p>
+            <p className="text-gray-400 text-sm">{companyName}</p>
             <p className="text-gray-600 text-xs mt-0.5">{quote.latestTradingDay}</p>
           </div>
           <div className="text-left sm:text-right">
@@ -81,17 +86,36 @@ export default function StockDashboard({ symbol, companyName }: Props) {
             </span>
           </div>
         </div>
+
+        {/* Day metrics strip inside hero */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-5 border-t border-[#2a2a4a]">
+          {metrics.map(({ label, value }) => (
+            <div key={label} className="flex flex-col gap-1">
+              <span className="text-[10px] uppercase tracking-widest text-gray-600">{label}</span>
+              <span className="text-base font-semibold text-gray-200">{value}</span>
+            </div>
+          ))}
+        </div>
       </div>
 
-      {/* Metrics grid */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-        {metrics.map(({ label, value }) => (
-          <div key={label} className="bg-[#1a1a2e] border border-[#2a2a4a] rounded-xl p-4 flex flex-col gap-1.5">
-            <span className="text-[11px] uppercase tracking-widest text-gray-600">{label}</span>
-            <span className="text-xl font-bold text-gray-200">{value}</span>
-          </div>
-        ))}
+      {/* Company Profile */}
+      <CompanyProfile symbol={symbol} />
+
+      {/* Three-column layout */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 items-stretch">
+        <div className="flex flex-col">
+          <RecommendationTrends symbol={symbol} />
+        </div>
+        <div className="flex flex-col">
+          <EarningsCalendar symbol={symbol} />
+        </div>
+        <div className="flex flex-col">
+          <MarketData symbol={symbol} />
+        </div>
       </div>
+
+      {/* Company News — full width */}
+      <CompanyNews symbol={symbol} />
 
     </div>
   );
