@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { getQuote, type StockQuote } from '../api/finnhub';
-import CompanyNews from './CompanyNews';
 import CompanyProfile from './CompanyProfile';
 import EarningsCalendar from './EarningsCalendar';
 import MarketData from './MarketData';
+import NewsPanel from './NewsPanel';
 import RecommendationTrends from './RecommendationTrends';
 
 interface Props {
@@ -114,8 +114,8 @@ export default function StockDashboard({ symbol, companyName }: Props) {
         </div>
       </div>
 
-      {/* Company News — full width */}
-      <CompanyNews symbol={symbol} />
+      {/* News — full width */}
+      <NewsPanel symbol={symbol} />
 
     </div>
   );

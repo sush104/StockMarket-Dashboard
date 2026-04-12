@@ -234,7 +234,16 @@ export interface NewsItem {
   image: string;
 }
 
-export async function getCompanyNews(symbol: string, days = 7): Promise<NewsItem[]> {
+export async function getMarketNews(category: 'general' | 'forex' | 'crypto' | 'merger' = 'general'): Promise<NewsItem[]> {
+  const url = `${BASE_URL}/news?category=${category}&token=${API_KEY}`;
+  const res = await fetch(url);
+  if (!res.ok) throw new Error('Network error');
+  const data = await res.json();
+  if (!Array.isArray(data)) return [];
+  return data.slice(0, 50); // fetch up to 50 for modal
+}
+
+export async function getCompanyNews(symbol: string, days = 14): Promise<NewsItem[]> {
   const to = new Date();
   const from = new Date();
   from.setDate(from.getDate() - days);
@@ -244,7 +253,7 @@ export async function getCompanyNews(symbol: string, days = 7): Promise<NewsItem
   if (!res.ok) throw new Error('Network error');
   const data = await res.json();
   if (!Array.isArray(data)) return [];
-  return data.slice(0, 10);
+  return data.slice(0, 50); // fetch up to 50 for modal
 }
 
 export async function getQuote(symbol: string): Promise<StockQuote> {
