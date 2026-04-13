@@ -183,29 +183,6 @@ export interface CandlePoint {
   close: number;
 }
 
-export async function getCandles(symbol: string, days = 30): Promise<CandlePoint[]> {
-  const to = Math.floor(Date.now() / 1000);
-  // Multiply by 2.5 to account for weekends/holidays ensuring enough trading days
-  const from = to - Math.ceil(days * 2.5) * 24 * 60 * 60;
-  const url = `${BASE_URL}/stock/candle?symbol=${encodeURIComponent(symbol)}&resolution=D&from=${from}&to=${to}&token=${API_KEY}`;
-  const res = await fetch(url);
-  if (!res.ok) throw new Error('Network error');
-  const data = await res.json();
-  if (!data || data.s !== 'ok' || !Array.isArray(data.t)) return [];
-  const points: CandlePoint[] = data.t
-    .map((ts: number, i: number) => ({
-      time: new Date(ts * 1000).toISOString().split('T')[0],
-      date: new Date(ts * 1000).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
-      open: data.o[i],
-      high: data.h[i],
-      low: data.l[i],
-      close: data.c[i],
-    }))
-    .filter((c: CandlePoint) => c.close != null);
-  // Trim to the requested number of trading days
-  return points.slice(-days);
-}
-
 export interface RecommendationTrend {
   period: string;       // e.g. "2024-03-01"
   strongBuy: number;
