@@ -2,17 +2,24 @@ import { useState, useRef, useEffect } from 'react';
 import { searchSymbol, type SearchResult } from '../api/finnhub';
 
 interface Props {
+  initialQuery?: string;
   onSelect: (symbol: string, name: string) => void;
 }
 
-export default function StockSearch({ onSelect }: Props) {
-  const [query, setQuery] = useState('');
+export default function StockSearch({ initialQuery = '', onSelect }: Props) {
+  const [query, setQuery] = useState(initialQuery);
   const [results, setResults] = useState<SearchResult[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [open, setOpen] = useState(false);
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+
+  // Sync search bar when a stock is selected externally (e.g. DefaultDashboard)
+  useEffect(() => {
+    setQuery(initialQuery);
+    setOpen(false);
+  }, [initialQuery]);
 
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {

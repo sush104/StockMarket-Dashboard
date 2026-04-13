@@ -23,10 +23,10 @@ function App() {
 
   return (
     <div className="min-h-screen bg-[#0d0d1a] flex flex-col items-center px-4 pb-20">
-      <header className="w-full max-w-7xl flex items-center justify-between pt-8 pb-4 px-0">
+      <header className="w-full max-w-full flex items-center justify-between pt-8 pb-4 px-0">
         <div className="flex-1" />
         <div className="text-center flex-1">
-          <h1 className="text-4xl font-extrabold text-white tracking-tight mb-1">📈 StockMarket Dashboard</h1>
+          <h1 className="text-4xl font-extrabold text-white tracking-tight mb-1">Stock Dashboard</h1>
           <p className="text-gray-500 text-base">Search any stock and get a real-time quote</p>
         </div>
         <div className="flex-1 flex justify-end">
@@ -36,7 +36,10 @@ function App() {
 
       <main className="w-full max-w-7xl">
         <div className="max-w-xl mx-auto">
-          <StockSearch onSelect={(symbol, name) => setSelected({ symbol, name })} />
+          <StockSearch
+            initialQuery={selected ? selected.symbol : ''}
+            onSelect={(symbol, name) => setSelected({ symbol, name })}
+          />
         </div>
         {selected
           ? <StockDashboard symbol={selected.symbol} companyName={selected.name} />
