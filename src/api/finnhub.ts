@@ -174,15 +174,6 @@ export async function getMarketStatus(exchange = 'US'): Promise<MarketStatus> {
   };
 }
 
-export interface CandlePoint {
-  time: string;   // 'YYYY-MM-DD' — required by lightweight-charts
-  date: string;   // 'MMM D'  — for display labels
-  open: number;
-  high: number;
-  low: number;
-  close: number;
-}
-
 export interface RecommendationTrend {
   period: string;       // e.g. "2024-03-01"
   strongBuy: number;
