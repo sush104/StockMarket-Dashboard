@@ -1,73 +1,120 @@
-# React + TypeScript + Vite
+# 📈 StockMarket Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A real-time stock market dashboard built with **React**, **TypeScript**, and **Vite** — powered by the [Finnhub API](https://finnhub.io). Features a dark/light theme, interactive charts, analyst data, earnings history, and live market news.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Features
 
-## React Compiler
+### Stock Search
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Instant symbol/company name search with 500ms debounce
+- Dropdown results with symbol, name, region, and currency
+- Selected symbol persists in the search bar across navigation
 
-## Expanding the ESLint configuration
+### Default Dashboard
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- Live quotes for 6 popular stocks (AAPL, MSFT, GOOGL, AMZN, TSLA, NVDA)
+- Top Gainer / Top Loser / Gainers count summary cards
+- Click any stock card to load its full dashboard
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### Dashboard (per symbol)
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+- **Hero Card** — live price, change %, and day metrics (Open, Prev Close, High, Low)
+- **Company Profile** — logo, industry, exchange, country, IPO date, website link, market cap
+- **Analyst Recommendations** — interactive donut chart (Recharts) for the selected period; click any period row to update the chart; trend period selector
+- **Earnings Calendar** — EPS surprise bar chart + table with Beat/Miss badges and upcoming earnings highlighted
+- **Market Data** — fundamentals (Market Cap, P/E, EPS, Beta, 52W High/Low, Dividend Yield), market open/closed status badge, and analyst price target range bar (Low → Mean → High)
+- **News Panel** — tabbed Company News / Market News, top 5 preview with "Show all" modal (up to 50 articles); lazy-loads market news
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### UI
+
+- **Dark / Light mode toggle** — persisted to `localStorage`
+- Fully responsive layout (single column on mobile, 3-column grid on desktop)
+- Consistent dark card system (`#1a1a2e` / `#12122a`) with CSS-override light theme
+
+---
+
+## Tech Stack
+
+| Layer     | Library                                      |
+| --------- | -------------------------------------------- |
+| Framework | React 19 + TypeScript                        |
+| Build     | Vite 8                                       |
+| Styling   | Tailwind CSS v4                              |
+| Charts    | Recharts 3 (donut)                           |
+| Data      | [Finnhub REST API](https://finnhub.io/docs/api) |
+
+---
+
+## Getting Started
+
+### 1. Clone & install
+
+```bash
+git clone https://github.com/your-username/StockMarket-Dashboard.git
+cd StockMarket-Dashboard
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 2. Add your Finnhub API key
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Create a `.env` file in the project root:
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```env
+VITE_FINNHUB_API_KEY=your_api_key_here
 ```
+
+Get a free key at [finnhub.io](https://finnhub.io).
+
+### 3. Run the dev server
+
+```bash
+npm run dev
+```
+
+### 4. Build for production
+
+```bash
+npm run build
+```
+
+---
+
+## Project Structure
+
+```
+src/
+├── api/
+│   └── finnhub.ts          # All Finnhub API calls and TypeScript interfaces
+├── components/
+│   ├── CompanyProfile.tsx   # Logo, industry, IPO, website
+│   ├── DefaultDashboard.tsx # Popular stocks landing screen
+│   ├── EarningsCalendar.tsx # EPS surprise chart + earnings table
+│   ├── MarketData.tsx       # Fundamentals, market status, price target
+│   ├── NewsPanel.tsx        # Tabbed company/market news with modal
+│   ├── RecommendationTrends.tsx # Donut chart + period selector
+│   ├── StockDashboard.tsx   # Main dashboard layout orchestrator
+│   ├── StockSearch.tsx      # Debounced search with dropdown
+│   └── ThemeToggle.tsx      # Dark/light mode toggle button
+└── App.tsx                  # Root layout, theme state, routing
+```
+
+---
+
+## API Endpoints Used
+
+| Endpoint                  | Used for                            |
+| ------------------------- | ----------------------------------- |
+| `/search`               | Symbol/company search               |
+| `/quote`                | Live price, change, OHLC            |
+| `/stock/profile2`       | Company profile                     |
+| `/stock/metric`         | Fundamentals (P/E, EPS, Beta, etc.) |
+| `/stock/price-target`   | Analyst price targets               |
+| `/stock/market-status`  | Market open/closed status           |
+| `/stock/recommendation` | Analyst buy/hold/sell trends        |
+| `/calendar/earnings`    | Earnings history and upcoming dates |
+| `/company-news`         | Company-specific news               |
+| `/news`                 | General market news                 |
+
+---
