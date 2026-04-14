@@ -27,6 +27,12 @@ html.light .divide-\[\#2a2a4a\] > :not([hidden]) ~ :not([hidden]) {
 /* Hover backgrounds */
 html.light .hover\:bg-\[\#22223a\]:hover        { background-color: #f1f5f9; }
 html.light .hover\:bg-\[\#2a2a4a\]\/40:hover    { background-color: rgb(203 213 225 / 0.4); }
+html.light .hover\:bg-\[\#1e1e35\]:hover        { background-color: #f1f5f9; }
+html.light .hover\:bg-\[\#16163a\]:hover        { background-color: #e8eef5; }
+
+/* Portfolio lot sub-row backgrounds & borders */
+html.light .bg-\[\#13132a\]     { background-color: #f8fafc; }
+html.light .border-\[\#1e1e35\] { border-color: #e2e8f0; }
 
 /* Text – lightest grays are invisible on white, darken them */
 html.light .text-white     { color: #0f172a; }
