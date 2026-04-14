@@ -27,9 +27,28 @@ A real-time stock market dashboard built with **React**, **TypeScript**, and **V
 - **Market Data** — fundamentals (Market Cap, P/E, EPS, Beta, 52W High/Low, Dividend Yield), market open/closed status badge, and analyst price target range bar (Low → Mean → High)
 - **News Panel** — tabbed Company News / Market News, top 5 preview with "Show all" modal (up to 50 articles); lazy-loads market news
 
+### Favourites Page
+
+- Star any stock from the Dashboard to save it to your Favourites list
+- Live quotes fetched in parallel for all saved stocks
+- Summary cards: total watching, gainers count, losers count, top gainer, and top loser
+- Each card shows live price, change %, and a remove (unstar) button
+- Click any card to jump straight to that stock's full Dashboard
+- Empty state prompt when no favourites are saved
+
+### Portfolio Page
+
+- Track stock holdings by logging a buy price and quantity via the **+ Track** button on any stock's Dashboard
+- Summary cards: total invested, current value, overall P&L (₹ and %), and number of positions
+- Per-stock rows showing individual lots with buy price, quantity, current price, and gain/loss
+- Remove individual lots directly from the table
+- Click any symbol to navigate to its full Dashboard
+- Empty state prompt when no holdings are tracked
+
 ### UI
 
 - **Dark / Light mode toggle** — persisted to `localStorage`
+- **Navbar** with Dashboard, Favourites (with live count badge), and Portfolio (with holdings count badge) tabs; active tab highlighted with a black border
 - Fully responsive layout (single column on mobile, 3-column grid on desktop)
 - Consistent dark card system (`#1a1a2e` / `#12122a`) with CSS-override light theme
 
