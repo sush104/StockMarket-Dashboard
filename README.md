@@ -123,17 +123,17 @@ src/
 
 ## API Endpoints Used
 
-| Endpoint                  | Used for                            |
-| ------------------------- | ----------------------------------- |
-| `/search`               | Symbol/company search               |
-| `/quote`                | Live price, change, OHLC            |
-| `/stock/profile2`       | Company profile                     |
-| `/stock/metric`         | Fundamentals (P/E, EPS, Beta, etc.) |
-| `/stock/price-target`   | Analyst price targets               |
-| `/stock/market-status`  | Market open/closed status           |
-| `/stock/recommendation` | Analyst buy/hold/sell trends        |
-| `/calendar/earnings`    | Earnings history and upcoming dates |
-| `/company-news`         | Company-specific news               |
-| `/news`                 | General market news.                |
+| Endpoint                  | Used for                             |
+| ------------------------- | ------------------------------------ |
+| `/search`               | Symbol/company search.               |
+| `/quote`                | Live price, change, OHLC.            |
+| `/stock/profile2`       | Company profile.                     |
+| `/stock/metric`         | Fundamentals (P/E, EPS, Beta, etc.)  |
+| `/stock/price-target`   | Analyst price targets.               |
+| `/stock/market-status`  | Market open/closed status.           |
+| `/stock/recommendation` | Analyst buy/hold/sell trends.        |
+| `/calendar/earnings`    | Earnings history and upcoming dates. |
+| `/company-news`         | Company-specific news.               |
+| `/news`                 | General market news.                 |
 
 ---
