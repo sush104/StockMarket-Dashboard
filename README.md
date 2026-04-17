@@ -134,6 +134,6 @@ src/
 | `/stock/recommendation` | Analyst buy/hold/sell trends        |
 | `/calendar/earnings`    | Earnings history and upcoming dates |
 | `/company-news`         | Company-specific news               |
-| `/news`                 | General market news                 |
+| `/news`                 | General market news.                |
 
 ---
